@@ -97,10 +97,10 @@ void MenuBarUI::onRenameResource() {
         bool ok;
         QString newName = QInputDialog::getText(
             this,
-            tr("Rename Resource"),                // title
-            tr("Enter new name for the resource:"),// label
-            QLineEdit::Normal,                      // echo mode
-            "",                                     // 默认文本
+            tr("Rename Resource"),                
+            tr("Enter new name for the resource:"),
+            QLineEdit::Normal,                      
+            "",                                     
             &ok
         );
         if (ok && !newName.isEmpty()) {
@@ -108,8 +108,8 @@ void MenuBarUI::onRenameResource() {
             selectedResource = nullptr;
         } else {
             QMessageBox::warning(this,
-                                 tr("Error"),        // 弹窗标题
-                                 tr("Invalid input")); // 提示信息
+                                 tr("Error"),       
+                                 tr("Invalid input"));
             return;
         }
     }
