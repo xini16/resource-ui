@@ -11,19 +11,22 @@ MenuBarUI::MenuBarUI(QWidget *parent) : QWidget(parent) {
     QAction *addC = addMenu->addAction("Type C");
 
     connect(addA, &QAction::triggered, this, [=]() {
+        lastAddedType = TypeA;
         emit addResource(nullptr, "New Resource A", TypeA);
     });
 
     connect(addB, &QAction::triggered, this, [=]() {
+        lastAddedType = TypeB;
         emit addResource(nullptr, "New Resource B", TypeB);
     });
 
     connect(addC, &QAction::triggered, this, [=]() {
+        lastAddedType = TypeC;
         emit addResource(nullptr, "New Resource C", TypeC);
     });
     
     connect(addButton, &QToolButton::clicked, this, [=]() {
-        emit addResource(nullptr, "New Resource C", TypeC);
+        emit addResource(nullptr, "New Resource", lastAddedType);
     });
 
     addButton->setMenu(addMenu);

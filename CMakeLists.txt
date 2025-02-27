@@ -7,8 +7,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(ui main.cpp ResourceViewUI.cpp ResourceManager.cpp Resource.cpp MenuBarUI.cpp)
 
-target_link_libraries(ui Qt5::Widgets)
+target_link_libraries(ui Qt6::Widgets)

@@ -30,6 +30,7 @@ public slots:
 
 private:
     QToolButton *addButton;
+    ResourceType lastAddedType;
     QToolButton *sortButton;
     QString criteria;
     QString sortOrder;
