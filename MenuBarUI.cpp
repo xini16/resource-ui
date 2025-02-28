@@ -40,14 +40,14 @@ MenuBarUI::MenuBarUI(QWidget *parent) : QWidget(parent) {
     sortButton->setText("Sort");
     sortButton->setMenu(sortHoverMenu);
     sortButton->setPopupMode(QToolButton::MenuButtonPopup);
-    sortOrder = "None";
+    order = None;
     connect(name, &QAction::triggered, this, [=]() {
         criteria = "name";
-        emit sortResources(criteria, sortOrder);
+        emit sortResources(criteria, order);
     });
     connect(tag, &QAction::triggered, this, [=]() {
         criteria = "tag";
-        emit sortResources(criteria, sortOrder);
+        emit sortResources(criteria, order);
     });
     connect(sortButton, &QPushButton::clicked, this, [=]() {
         sortbuttonClicked();
@@ -68,20 +68,24 @@ MenuBarUI::MenuBarUI(QWidget *parent) : QWidget(parent) {
 
     
 void MenuBarUI::sortbuttonClicked() {       
-    if (sortOrder == "None") {
+    switch (order) {
+        case None:
         sortButton->setText("Ascending");
-        sortOrder = "Ascending";
-        emit sortResources(criteria, sortOrder);
-    }
-    if (sortOrder == "Ascending") {
+        order = Ascending;
+        emit sortResources(criteria, order);
+        break;
+        
+        case Ascending:
         sortButton->setText("Descending");
-        sortOrder = "Descending";
-        emit sortResources(criteria, sortOrder);
-    }
-    if (sortOrder == "Descending") {
+        order = Descending;
+        emit sortResources(criteria, order);
+        break;
+    
+        case Descending: 
         sortButton->setText("Sort");
-        sortOrder = "None";
-        emit sortResources(criteria, sortOrder);
+        order = None;
+        emit sortResources(criteria, order);
+        break;
     }
 }
 
@@ -94,17 +98,18 @@ void MenuBarUI::onDeleteResource() {
 
 void MenuBarUI::onRenameResource() {
     if (selectedResource) {
-        bool ok;
+        bool inputFinished;
         QString newName = QInputDialog::getText(
             this,
             tr("Rename Resource"),                
             tr("Enter new name for the resource:"),
             QLineEdit::Normal,                      
             "",                                     
-            &ok
+            &inputFinished
         );
-        if (ok && !newName.isEmpty()) {
-            emit renameResource(selectedResource, newName);
+        if (inputFinished && !newName.isEmpty()) {
+            std::string stdNewName = newName.toStdString();
+            emit renameResource(selectedResource, stdNewName);
             selectedResource = nullptr;
         } else {
             QMessageBox::warning(this,

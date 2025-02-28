@@ -9,7 +9,10 @@
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QMessageBox>
-#include "Resource.h"
+#include <utensil.h>
+
+class Resource;
+class ResourceManager;
 
 class MenuBarUI : public QWidget {
     Q_OBJECT
@@ -19,9 +22,9 @@ public:
     Resource* selectedResource;
 
 signals:
-    void addResource(Resource *parent, const QString &name, const ResourceType type);
-    void renameResource(Resource *resource, const QString &newName);
-    void sortResources(const QString &criteria, const QString &sortOrder);
+    void addResource(Resource *parent, const std::string &name, const ResourceType type);
+    void renameResource(Resource *resource, const std::string &newName);
+    void sortResources(const std::string &criteria, const sortOrder &order);
     void deleteResource(Resource *resource);
 
 public slots:
@@ -32,9 +35,9 @@ private:
     QToolButton *addButton;
     ResourceType lastAddedType;
     QToolButton *sortButton;
-    QString criteria;
-    QString sortOrder;
+    std::string criteria;
     void sortbuttonClicked();
+    sortOrder order;
     QPushButton *renameButton;
     QPushButton *deleteButton;
     QMenu *addMenu;

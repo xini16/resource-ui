@@ -1,37 +1,33 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
-#include <QString>
-#include <QList>
-
-enum ResourceType {
-    TypeA,
-    TypeB,
-    TypeC
-};
+#include <string>
+#include <vector>
+#include <utensil.h>
 
 class Resource {
 public:
     
-    Resource(const QString &name, ResourceType type, Resource *parent = nullptr);
-    QString getName() const;
-    QString getTag() const;
-    QList<Resource *> getChildren() const;
+    Resource(const std::string &name, ResourceType type, Resource *parent = nullptr);
+    ~Resource();
+    std::string getName() const;
+    std::string getTag() const;
+    std::vector<Resource *> getChildren() const;
     Resource *getParent() const;
     ResourceType getType() const;
     bool isFolder() const;
 
-    void setName(const QString &name);
-    void setTag(const QString &tag);
+    void setName(const std::string &name);
+    void setTag(const std::string &tag);
     void setType(ResourceType type);
     void addChild(Resource *child);
     void removeChild(Resource *child);
     bool hasChildren() const;
 
 private:
-    QString name;
-    QString tag;
+    std::string name;
+    std::string tag;
     Resource *parent;
-    QList<Resource *> children;
+    std::vector<Resource *> children;
     ResourceType type;
 };
 
