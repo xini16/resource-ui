@@ -4,25 +4,28 @@
 #include "Resource.h"
 #include <QObject>
 
+
 class ResourceManager : public QObject {
     Q_OBJECT
 
 public:
     explicit ResourceManager(QObject *parent = nullptr);
-    QList<Resource *> getRootResources() const;
+    std::vector<Resource *> getRootResources() const;
 
 public slots: 
-    void addResource(Resource *parent, const QString &name, const ResourceType type);
+    void addResource(Resource *parent, const std::string &name, const ResourceType type);
     void deleteResource(Resource *resource);
-    void renameResource(Resource *resource, const QString &newName);
-    void sortResources(const QString &criteria, const QString &sortOrder);
+    void renameResource(Resource *resource, const std::string &newName);
+    void sortResources(const std::string &criteria, const sortOrder &order);
+    void addChild(Resource *parent, Resource *child);
+    void removeChild(Resource *child);
     void createTestData();
 
 signals:
     void resourceUpdated(); 
 
 private:
-    QList<Resource *> rootResources;
+    std::vector<Resource *> rootResources;
 };
 
 #endif // RESOURCEMANAGER_H
